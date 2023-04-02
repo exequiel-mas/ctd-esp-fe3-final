@@ -1,22 +1,43 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CardActionArea, CardMedia, CardContent, Card, Typography, Stack } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import * as DOCTOR_IMAGE from '../assets/doctor.jpg'
+import { DataContext } from '../Components/utils/data.context'
+import { useNavigate } from 'react-router-dom'
 
+const CustomCard = ({ dentist }) => {
+  const { handleFavourite, getIsFavourite } = useContext(DataContext)
+  const isFavourite = getIsFavourite(dentist?.id)
 
-const Card = ({ name, username, id }) => {
-
-  const addFav = ()=>{
-    // Aqui iria la logica para agregar la Card en el localStorage
-  }
-
+  const push = useNavigate()
   return (
-    <div className="card">
-        {/* En cada card deberan mostrar en name - username y el id */}
-
-        {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}
-
-        {/* Ademas deberan integrar la logica para guardar cada Card en el localStorage */}
-        <button onClick={addFav} className="favButton">Add fav</button>
-    </div>
+    <Card sx={{ maxWidth: 345 }} aria-label="custom-card">
+      <CardActionArea aria-label='action-area' onClick={() => push(`/dentists/${dentist?.id}`)}>
+        <CardMedia
+          component="img"
+          height="140"
+          image={DOCTOR_IMAGE.default}
+          alt="dentist"
+        />
+        <CardContent>
+          <Typography variant="h5" color="text.primary" gutterBottom noWrap>
+            {dentist?.name}
+          </Typography>
+          <Typography variant="body1" color='text.secondary' gutterBottom>
+            {dentist?.username}
+          </Typography>
+          <Stack direction='row' justifyContent='space-between' paddingTop={3}>
+            <Typography variant="body1" gutterBottom color='text.secondary'>
+              ID {dentist?.id}
+            </Typography>
+            <FavoriteIcon onClick={(e) => handleFavourite(e, dentist)} sx={{
+              color: isFavourite ? 'secondary.main' : 'grey.500',
+            }} aria-label='favourite-button' />
+          </Stack>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 };
 
-export default Card;
+export default CustomCard;
