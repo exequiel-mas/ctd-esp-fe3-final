@@ -41,6 +41,8 @@ export default function Detail() {
       flex: '1 auto',
       paddingTop: '7em',
     }}>
+      {dentist.loading && <Typography variant='h5' textAlign='center' color='text.primary' marginBottom={3}>Cargando...</Typography>}
+      {dentist.error && <Typography variant='h5' textAlign='center' color='text.secondary' marginBottom={3}>Error al cargar los datos</Typography>}
       <Card sx={{ maxWidth: 600, minWidth: 300 }}>
       <CardActionArea>
         <CardMedia

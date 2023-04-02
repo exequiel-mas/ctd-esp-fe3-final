@@ -10,6 +10,8 @@ const Home = () => {
   return (
     <Container sx={{ paddingTop: '7em', paddingBottom: '2em', display:'flex', flexDirection:'column', alignItems:'center', flex:'1 auto' }}>
       <Typography variant='h3' textAlign='center' color='text.primary' marginBottom={3}>Dentistas</Typography>
+      {dentists.loading && <Typography variant='h5' textAlign='center' color='text.primary' marginBottom={3}>Cargando...</Typography>}
+      {dentists.error && <Typography variant='h5' textAlign='center' color='text.secondary' marginBottom={3}>Error al cargar los datos</Typography>}
       <Grid container sx={{
         justifyContent: 'center',
         alignContent: 'center',
